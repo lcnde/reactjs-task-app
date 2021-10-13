@@ -1,12 +1,17 @@
 // this will handle the input field with the logic
 import React, { Component } from 'react';
+import Overview from "./components/Overview";
+import uniqid from "uniqid";
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      task: {text: ''},
+      task: {
+        text: '',
+        id: uniqid()
+      },
       tasks: [],
     };
   }
@@ -17,6 +22,7 @@ class App extends Component {
     this.setState({
       task: {
         text: e.target.value, //target finds out which element has triggered a specific event.
+        id: this.state.task.id,
       }                       //my guess is that it find who triggered the event and then the  
     });                       //value of the event
   };
@@ -27,7 +33,10 @@ class App extends Component {
     e.preventDefault();//this doesnt allow the form to be refreshed after we submit it
     this.setState({
       tasks: this.state.tasks.concat(this.state.task),
-      task: {text: ''}
+      task: {
+        text: '',
+        id: uniqid()
+      },
     })
   }
 
@@ -47,6 +56,7 @@ class App extends Component {
             Add Task
           </button>
         </form>
+        <Overview tasks={tasks} />
       </div>
     )
   }
